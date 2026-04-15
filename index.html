@@ -2,10 +2,166 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Install Checklist</title>
+  <title>Lightgig Install Checklist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 28px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .field, .item {
+      background: white;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 10px;
+      font-size: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      font-size: 20px;
+      padding: 10px;
+      margin-top: 6px;
+      box-sizing: border-box;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.6);
+      margin-right: 14px;
+    }
+
+    button {
+      width: 100%;
+      font-size: 22px;
+      padding: 14px;
+      margin: 20px 0;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+    }
+  </style>
 </head>
+
 <body>
   <h1>Lightgig Install Checklist</h1>
-  <p>If you can see this, the page is working.</p>
+
+  <button onclick="resetChecklist()">New Install / Reset Checklist</button>
+
+  <h2>Install Info</h2>
+
+  <div class="field">
+    Customer Name
+    <input type="text" id="customerName">
+  </div>
+
+  <div class="field">
+    Address
+    <input type="text" id="address">
+  </div>
+
+  <div class="field">
+    Plan
+    <input type="text" id="plan">
+  </div>
+
+  <div class="field">
+    Router
+    <input type="text" id="router" placeholder="Rental / Customer-owned">
+  </div>
+
+  <div class="field">
+    ONT Type
+    <input type="text" id="ontType" placeholder="Nano / XG / XGS / Wave">
+  </div>
+
+  <h2>Pre-Install</h2>
+  <label class="item"><input type="checkbox"> Reviewed Asana task</label>
+  <label class="item"><input type="checkbox"> Confirmed plan and router rental status</label>
+  <label class="item"><input type="checkbox"> Checked notes for special instructions</label>
+  <label class="item"><input type="checkbox"> Confirmed needed hardware is on truck</label>
+
+  <h2>Arrival</h2>
+  <label class="item"><input type="checkbox"> Contacted customer</label>
+  <label class="item"><input type="checkbox"> Confirmed router location</label>
+  <label class="item"><input type="checkbox"> Found media can / home run / desired path</label>
+  <label class="item"><input type="checkbox"> Explained basic install plan</label>
+
+  <h2>ONT / NID</h2>
+  <label class="item"><input type="checkbox"> Correct ONT installed</label>
+  <label class="item"><input type="checkbox"> Fiber cleaned and connected</label>
+  <label class="item"><input type="checkbox"> Signal verified</label>
+  <label class="item"><input type="checkbox"> ONT mounted neatly</label>
+  <label class="item"><input type="checkbox"> NID closed and secured</label>
+
+  <h2>Router Path</h2>
+  <label class="item"><input type="checkbox"> Home run identified</label>
+  <label class="item"><input type="checkbox"> Terminations checked/reterminated as needed</label>
+  <label class="item"><input type="checkbox"> PoE injector mounted/patched correctly</label>
+  <label class="item"><input type="checkbox"> Wall plate/media can path tested</label>
+
+  <h2>Router / Wi-Fi</h2>
+  <label class="item"><input type="checkbox"> Router placed appropriately</label>
+  <label class="item"><input type="checkbox"> SSID/password configured</label>
+  <label class="item"><input type="checkbox"> Aginet/Talk setup completed if applicable</label>
+  <label class="item"><input type="checkbox"> Customer devices connected if needed</label>
+
+  <h2>QC</h2>
+  <label class="item"><input type="checkbox"> Continuity test passed</label>
+  <label class="item"><input type="checkbox"> Link speed verified</label>
+  <label class="item"><input type="checkbox"> Speed test completed</label>
+  <label class="item"><input type="checkbox"> Wi-Fi test completed</label>
+  <label class="item"><input type="checkbox"> Wiggle test completed</label>
+  <label class="item"><input type="checkbox"> Customer confirmed internet is working</label>
+
+  <h2>Wrap-Up</h2>
+  <label class="item"><input type="checkbox"> Live router port sticker applied</label>
+  <label class="item"><input type="checkbox"> Explained ONT → PoE → router path</label>
+  <label class="item"><input type="checkbox"> Referral card / tech card given</label>
+  <label class="item"><input type="checkbox"> Final notes/photos added to Asana</label>
+  <label class="item"><input type="checkbox"> Customer has no remaining questions</label>
+
+  <script>
+    const inputs = document.querySelectorAll('input');
+
+    inputs.forEach((input, index) => {
+      const key = 'installChecklist_' + index;
+
+      if (input.type === 'checkbox') {
+        input.checked = localStorage.getItem(key) === 'true';
+        input.addEventListener('change', () => {
+          localStorage.setItem(key, input.checked);
+        });
+      } else {
+        input.value = localStorage.getItem(key) || '';
+        input.addEventListener('input', () => {
+          localStorage.setItem(key, input.value);
+        });
+      }
+    });
+
+    function resetChecklist() {
+      if (confirm('Start a new install and clear this checklist?')) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
+  </script>
 </body>
 </html>
