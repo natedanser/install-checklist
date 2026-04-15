@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Lightgig Install Checklist</title>
+  <title>Lightgig Installation Checklist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#222222">
+  <meta name="theme-color" content="#222222">
 
   <style>
     body {
@@ -18,41 +18,32 @@
 
     h1 {
       font-size: 28px;
-      margin-bottom: 8px;
+      margin-bottom: 20px;
+      text-align: left;
     }
 
-    h2 {
-      margin-top: 28px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #ddd;
-    }
-
-    .field, .item {
+    .item {
+      display: flex;
+      align-items: center;
       background: white;
       padding: 14px;
-      margin: 10px 0;
-      border-radius: 10px;
+      margin: 6px 0;
+      border-radius: 8px;
       font-size: 20px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      font-size: 20px;
-      padding: 10px;
-      margin-top: 6px;
-      box-sizing: border-box;
+      text-align: left;
     }
 
     input[type="checkbox"] {
-      transform: scale(1.6);
+      transform: scale(1.5);
       margin-right: 14px;
+      flex-shrink: 0;
     }
 
     button {
       width: 100%;
       font-size: 22px;
       padding: 14px;
-      margin: 20px 0;
+      margin-top: 24px;
       border: none;
       border-radius: 10px;
       background: #222;
@@ -62,130 +53,40 @@
 </head>
 
 <body>
-  <h1>Lightgig Install Checklist v5</h1>
+  <h1>Lightgig Installation Checklist</h1>
 
-  <button onclick="resetChecklist()">New Install / Reset Checklist</button>
+  <label class="item"><input type="checkbox">Take picture of ONT / NID</label>
+  <label class="item"><input type="checkbox">Take picture of media can</label>
+  <label class="item"><input type="checkbox">Apply all stickers</label>
+  <label class="item"><input type="checkbox">Ensure quality of all L1 connections</label>
+  <label class="item"><input type="checkbox">Perform speed negotiation and bandwidth testing</label>
+  <label class="item"><input type="checkbox">Take picture of router area</label>
+  <label class="item"><input type="checkbox">Gather “How Customer Heard About Us” info</label>
 
-  <h2>Install Info</h2>
-
-  <div class="field">
-    Customer Name
-    <input type="text" id="customerName">
-  </div>
-
-  <div class="field">
-    Address
-    <input type="text" id="address">
-  </div>
-
-  <div class="field">
-    Plan
-    <input type="text" id="plan">
-  </div>
-
-  <div class="field">
-    Router
-    <input type="text" id="router" placeholder="Rental / Customer-owned">
-  </div>
-
-  <div class="field">
-    ONT Type
-    <input type="text" id="ontType" placeholder="Nano / XG / XGS / Wave">
-  </div>
-
-  <h2>Pre-Install</h2>
-  <label class="item"><input type="checkbox"> Reviewed Asana task</label>
-  <label class="item"><input type="checkbox"> Confirmed plan and router rental status</label>
-  <label class="item"><input type="checkbox"> Checked notes for special instructions</label>
-  <label class="item"><input type="checkbox"> Confirmed needed hardware is on truck</label>
-
-  <h2>Arrival</h2>
-  <label class="item"><input type="checkbox"> Contacted customer</label>
-  <label class="item"><input type="checkbox"> Confirmed router location</label>
-  <label class="item"><input type="checkbox"> Found media can / home run / desired path</label>
-  <label class="item"><input type="checkbox"> Explained basic install plan</label>
-
-  <h2>ONT / NID</h2>
-  <label class="item"><input type="checkbox"> Correct ONT installed</label>
-  <label class="item"><input type="checkbox"> Fiber cleaned and connected</label>
-  <label class="item"><input type="checkbox"> Signal verified</label>
-  <label class="item"><input type="checkbox"> ONT mounted neatly</label>
-  <label class="item"><input type="checkbox"> NID closed and secured</label>
-
-  <h2>Router Path</h2>
-  <label class="item"><input type="checkbox"> Home run identified</label>
-  <label class="item"><input type="checkbox"> Terminations checked/reterminated as needed</label>
-  <label class="item"><input type="checkbox"> PoE injector mounted/patched correctly</label>
-  <label class="item"><input type="checkbox"> Wall plate/media can path tested</label>
-
-  <h2>Router / Wi-Fi</h2>
-  <label class="item"><input type="checkbox"> Router placed appropriately</label>
-  <label class="item"><input type="checkbox"> SSID/password configured</label>
-  <label class="item"><input type="checkbox"> Aginet/Talk setup completed if applicable</label>
-  <label class="item"><input type="checkbox"> Customer devices connected if needed</label>
-
-  <h2>QC</h2>
-  <label class="item"><input type="checkbox"> Continuity test passed</label>
-  <label class="item"><input type="checkbox"> Link speed verified</label>
-  <label class="item"><input type="checkbox"> Speed test completed</label>
-  <label class="item"><input type="checkbox"> Wi-Fi test completed</label>
-  <label class="item"><input type="checkbox"> Wiggle test completed</label>
-  <label class="item"><input type="checkbox"> Customer confirmed internet is working</label>
-
-  <h2>Wrap-Up</h2>
-  <label class="item"><input type="checkbox"> Live router port sticker applied</label>
-  <label class="item"><input type="checkbox"> Explained ONT → PoE → router path</label>
-  <label class="item"><input type="checkbox"> Referral card / tech card given</label>
-  <label class="item"><input type="checkbox"> Final notes/photos added to Asana</label>
-  <label class="item"><input type="checkbox"> Customer has no remaining questions</label>
+  <button onclick="resetChecklist()">Checklist Complete</button>
 
   <script>
-    const inputs = document.querySelectorAll('input');
+    const inputs = document.querySelectorAll('input[type="checkbox"]');
 
     inputs.forEach((input, index) => {
       const key = 'installChecklist_' + index;
+      input.checked = localStorage.getItem(key) === 'true';
 
-      if (input.type === 'checkbox') {
-        input.checked = localStorage.getItem(key) === 'true';
-        input.addEventListener('change', () => {
-          localStorage.setItem(key, input.checked);
-        });
-      } else {
-        input.value = localStorage.getItem(key) || '';
-        input.addEventListener('input', () => {
-          localStorage.setItem(key, input.value);
-        });
-      }
+      input.addEventListener('change', () => {
+        localStorage.setItem(key, input.checked);
+      });
     });
 
     function resetChecklist() {
-      if (confirm('Start a new install and clear this checklist?')) {
+      if (confirm('Checklist complete. Reset for the next install?')) {
         localStorage.clear();
         location.reload();
       }
     }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js');
+    }
   </script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js');
-  }
-</script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(() => {
-        document.body.insertAdjacentHTML(
-          'beforeend',
-          '<p style="font-size:18px; padding:12px; background:#dff0d8;">Offline mode installed.</p>'
-        );
-      })
-      .catch(() => {
-        document.body.insertAdjacentHTML(
-          'beforeend',
-          '<p style="font-size:18px; padding:12px; background:#f2dede;">Offline mode failed to install.</p>'
-        );
-      });
-  }
-</script>
 </body>
 </html>
