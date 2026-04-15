@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lightgig-install-checklist-v3';
+const CACHE_NAME = 'lightgig-install-checklist-v4';
 
 const FILES_TO_CACHE = [
   './',
