@@ -170,5 +170,22 @@
     navigator.serviceWorker.register('./service-worker.js');
   }
 </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => {
+        document.body.insertAdjacentHTML(
+          'beforeend',
+          '<p style="font-size:18px; padding:12px; background:#dff0d8;">Offline mode installed.</p>'
+        );
+      })
+      .catch(() => {
+        document.body.insertAdjacentHTML(
+          'beforeend',
+          '<p style="font-size:18px; padding:12px; background:#f2dede;">Offline mode failed to install.</p>'
+        );
+      });
+  }
+</script>
 </body>
 </html>
